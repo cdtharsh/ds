@@ -1,0 +1,51 @@
+import pandas as pd
+import numpy as np
+# Create dataset
+np.random.seed(0)
+data = {
+ 'Age': np.random.randint(20, 60, size=100), # Generate random age between 20 and 60
+ 'Income': np.random.randint(30000, 100000, size=100), # Generate random income between 30,000 and 100,000
+ 'Gender': np.random.choice(['Male', 'Female'], size=100) # Randomly assign gender
+}
+# Convert dictionary to DataFrame
+df = pd.DataFrame(data)
+# Convert DataFrame to CSV file
+df.to_csv('dataset.csv', index=False)
+df.head()
+# Summary statistics grouped by Gender
+summary_stats = df.groupby('Gender').describe()
+summary_stats
+# Create a dictionary to map categorical values to numeric values
+category_mapping = {'Male': 0, 'Female': 1}
+# Map the categorical variable 'Gender' to numeric values
+numeric_gender = df['Gender'].map(category_mapping)
+# Display the numeric values for each response to the categorical variable
+numeric_gender
+import pandas as pd
+# Load the iris dataset
+iris_df = pd.read_csv("/content/Iris.csv")
+iris_df.head()
+# Check the data types of all columns
+print(iris_df.dtypes)
+# Convert the numeric columns to numeric data type
+numeric_columns = ['SepalLengthCm', 'SepalWidthCm', 'PetalLengthCm',
+'PetalWidthCm']
+iris_df[numeric_columns] = iris_df[numeric_columns].apply(pd.to_numeric, errors='coerce')
+# Check the data types again after conversion
+print(iris_df.dtypes)
+# Filter out numeric columns
+numeric_cols = iris_df.select_dtypes(include=np.number)
+# Display percentile, mean, standard deviation, etc. for numeric columns
+print("\nPercentile (25%):")
+print(numeric_cols.quantile(0.25))
+print("\nMean:")
+print(numeric_cols.mean())
+print("\nStandard Deviation:")
+print(numeric_cols.std())
+# Add other statistical measures as needed
+# Calculate minimum
+print("\nMinimum:")
+print(iris_df.min())
+# Calculate maximum
+print("\nMaximum:")
+print(iris_df.max())
