@@ -1,0 +1,78 @@
+import seaborn as sns
+import matplotlib.pyplot as plt
+# Load the Titanic dataset
+titanic_data = sns.load_dataset('titanic')
+# Display the first few rows of the dataset
+titanic_data.head()
+
+# Set the style of seaborn plots
+sns.set(style="whitegrid")
+# Plot histogram of ticket prices
+plt.figure(figsize=(8, 4))
+sns.histplot(titanic_data['fare'], bins=30, kde=True)
+plt.title('Distribution of Ticket Prices on Titanic')
+plt.xlabel('Fare')
+plt.ylabel('Frequency')
+plt.show()
+
+# Draw a distplot with rugplot for age
+plt.figure(figsize=(10, 6))
+sns.distplot(titanic_data['age'], rug=True)
+plt.title('Distribution of Age with Rugplot')
+plt.xlabel('Age')
+plt.ylabel('Density')
+plt.show()
+
+# Draw a jointplot with scatter and kernel density estimation for fare and age
+sns.jointplot(x='fare', y='age', data=titanic_data, kind='kde')
+plt.title('Jointplot of Fare and Age')
+plt.show()
+
+# Draw a rugplot for age
+plt.figure(figsize=(8, 4))
+sns.rugplot(titanic_data['age'])
+plt.title('Rugplot of Age')
+plt.xlabel('Age')
+plt.show()
+
+# Draw a violin plot for fare and class
+plt.figure(figsize=(8, 4))
+sns.violinplot(x='class', y='fare', data=titanic_data)
+plt.title('Violin Plot of Fare by Class')
+plt.xlabel('Class')
+plt.ylabel('Fare')
+plt.show()
+
+# Draw a swarm plot for class and age
+plt.figure(figsize=(8, 4))
+sns.swarmplot(x='class', y='age', data=titanic_data)
+plt.title('Swarm Plot of Age by Class')
+plt.xlabel('Class')
+plt.ylabel('Age')
+plt.show()
+     
+
+# Draw a bar plot for sex and survival
+plt.figure(figsize=(8, 4))
+sns.barplot(x='sex', y='survived', data=titanic_data)
+plt.title('Bar Plot of Survival by Sex')
+plt.xlabel('Sex')
+plt.ylabel('Survival Probability')
+plt.show()
+
+# Draw a box plot for class and age
+plt.figure(figsize=(8, 4))
+sns.boxplot(x='class', y='age', data=titanic_data)
+plt.title('Box Plot of Age by Class')
+plt.xlabel('Class')
+plt.ylabel('Age')
+plt.show()
+
+# Draw a strip plot for class and age
+plt.figure(figsize=(8, 4))
+sns.stripplot(x='class', y='age', data=titanic_data)
+plt.title('Strip Plot of Age by Class')
+plt.xlabel('Class')
+plt.ylabel('Age')
+plt.show()
+
