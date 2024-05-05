@@ -1,0 +1,46 @@
+import pandas as pd
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import LabelEncoder
+from sklearn.naive_bayes import GaussianNB
+from sklearn.metrics import confusion_matrix, accuracy_score, precision_score, recall_score, f1_score
+# Load the dataset
+data = pd.read_csv("/content/Iris.csv")
+
+# Encoding the categorical target variable
+le = LabelEncoder()
+data['Species'] = le.fit_transform(data['Species'])
+
+# Selecting features and target variable
+X = data.iloc[:, :-1]
+y = data.iloc[:, -1]
+
+# Splitting the dataset into the Training set and Test set
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.25, random_state=0)
+# Naïve Bayes classifier
+classifier = GaussianNB()
+classifier.fit(X_train, y_train)
+
+# Predicting the Test set results
+y_pred = classifier.predict(X_test)
+# Confusion Matrix
+cm = confusion_matrix(y_test, y_pred)
+print("Confusion Matrix:")
+print(cm)
+
+# Calculating performance metrics
+TP = cm[1, 1]
+FP = cm[0, 1]
+TN = cm[0, 0]
+FN = cm[1, 0]
+
+accuracy = accuracy_score(y_test, y_pred)
+error_rate = 1 - accuracy
+precision = precision_score(y_test, y_pred, average='weighted')
+recall = recall_score(y_test, y_pred, average='weighted')
+f1 = f1_score(y_test, y_pred, average='weighted')
+print("\nPerformance Metrics:")
+print(f"Accuracy: {accuracy}")
+print(f"Error Rate: {error_rate}")
+print(f"Precision: {precision}")
+print(f"Recall: {recall}")
+print(f"F1 Score: {f1}")
