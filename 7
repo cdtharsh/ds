@@ -1,0 +1,44 @@
+import nltk
+from nltk.tokenize import word_tokenize
+from nltk import pos_tag
+from nltk.corpus import stopwords
+from nltk.stem import PorterStemmer, WordNetLemmatizer
+from sklearn.feature_extraction.text import TfidfVectorizer
+import string
+nltk.download('punkt')
+nltk.download('averaged_perceptron_tagger')
+nltk.download('stopwords')
+nltk.download('wordnet')
+
+# Sample document
+sample_document = "Text analytics is the process of converting unstructured text data into meaningful and actionable information."
+# Tokenization
+tokens = word_tokenize(sample_document)
+print("Tokenization:", tokens)
+
+# POS Tagging
+pos_tags = pos_tag(tokens)
+print("\nPOS Tagging:", pos_tags)
+     
+# Stopwords removal
+stop_words = set(stopwords.words('english'))
+filtered_tokens = [word for word in tokens if word.lower() not in
+stop_words]
+print("\nStopwords Removal:", filtered_tokens)
+
+# Stemming
+stemmer = PorterStemmer()
+stemmed_tokens = [stemmer.stem(word) for word in filtered_tokens]
+print("\nStemming:", stemmed_tokens)
+
+# Lemmatization
+lemmatizer = WordNetLemmatizer()
+lemmatized_tokens = [lemmatizer.lemmatize(word) for word in
+filtered_tokens]
+print("\nLemmatization:", lemmatized_tokens)
+
+# Term Frequency - Inverse Document Frequency (TF-IDF) representation
+tfidf_vectorizer = TfidfVectorizer()
+tfidf_representation = tfidf_vectorizer.fit_transform([sample_document])
+print("\nTF-IDF Representation:")
+print(tfidf_representation)
