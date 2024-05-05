@@ -6,3 +6,10 @@ df=sns.load_dataset("titanic")
 
 sns.boxplot(x=df['sex'],y=df['age'],hue=df['survived'])
 
+Observations:
+
+The box plots show the distribution of ages for males and females separately.
+For both males and females, the median age of survivors appears to be lower than the median age of non-survivors.
+The interquartile range (IQR) for survivors tends to be narrower compared to non-survivors, indicating less variability in ages among survivors.
+In general, there seem to be more outliers among survivors compared to non-survivors, especially among females.
+Overall, the box plot suggests that younger individuals were more likely to survive the Titanic disaster regardless of gender.
