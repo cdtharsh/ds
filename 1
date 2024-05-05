@@ -8,7 +8,7 @@ df.shape
 df.describe(include='all')
 df.dtypes
 # Convert the target variable (species) to categorical variable
-df['new_column_name'] = df.iloc[:,:-1].astype('category')
+df['new_column_name'] = df.iloc[:,-1].astype('category')
 from sklearn import preprocessing
 min_max_scaler = preprocessing.MinMaxScaler()
 x = df.iloc[ : , :4]
