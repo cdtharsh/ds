@@ -1,0 +1,48 @@
+import pandas as pd
+import numpy as np
+# Create a sample dataset
+data = pd.DataFrame({
+ 'Student_ID': [1, 2, 3, 4, 5],
+ 'Study_Hours': [4, 5, 'NA', 6, 7], # Introduce 'NA' as missing value
+ 'Test_Score': [85, 88, 75, 90, 92]
+})
+import numpy as np
+# Step 1: Handle missing values
+# Replace 'NA' with NaN
+data.replace('NA', np.nan, inplace=True)
+# Show missing values after handling
+missing_values_after = data.isnull().sum()
+print("Missing values after handling:")
+print(missing_values_after)
+# Show dataset after handling missing values
+print("Dataset after handling missing values:")
+print(data)
+
+# Step 2: Convert 'Study_Hours' to numeric
+# Convert to float type to handle NaN values
+data['Study_Hours'] = pd.to_numeric(data['Study_Hours'],
+errors='coerce')
+# Fill missing values with median
+data['Study_Hours'].fillna(data['Study_Hours'].median(), inplace=True)
+data['Study_Hours'] = data['Study_Hours'].astype(int) # Convert back to integer
+# Step 3: Detect outliers
+# For simplicity, let's use z-score method to detect outliers in
+'Test_Score'
+from scipy.stats import zscore
+data['Test_Score_Zscore'] = zscore(data['Test_Score'])
+# Step 4: Handle outliers
+# We'll consider z-score > 3 as outliers and replace them with the median
+data.loc[data['Test_Score_Zscore'].abs() > 3, 'Test_Score'] = data['Test_Score'].median()
+# Step 5: Data Transformation
+# Apply square root transformation to 'Test_Score' to reduce skewness
+data['Transformed_Test_Score'] = np.sqrt(data['Test_Score'])
+# Display the modified dataset
+print(data)
+
+from scipy.stats import skew
+# Calculate skewness before transformation
+skew_before = skew(data['Test_Score'])
+# Calculate skewness after transformation
+skew_after = skew(data['Transformed_Test_Score'])
+print(f"Skewness before transformation: {skew_before}")
+print(f"Skewness after transformation: {skew_after}")
