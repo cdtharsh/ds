@@ -1,0 +1,25 @@
+import pandas as pd
+df = pd.read_csv('')
+df
+df.head()
+df.isnull()
+df.isnull().sum()
+df.shape
+df.describe(include='all')
+df.dtypes
+# Convert the target variable (species) to categorical variable
+df['new_column_name'] = df.iloc[:,:-1].astype('category')
+from sklearn import preprocessing
+min_max_scaler = preprocessing.MinMaxScaler()
+x = df.iloc[ : , :4]
+x_scale = min_max_scaler.fit_transform(x)
+df_norm = pd.DataFrame(x_scale)
+df_norm
+df['Species'].unique()
+data_label = preprocessing.LabelEncoder()
+df['Species'] = data_label.fit_transform(df['Species'])
+df['Species'].unique()
+# One-hot encode the target variable (species)
+df = pd.get_dummies(df, columns=[4])
+# Display the first few rows of the dataframe after encoding
+print(df.head())
